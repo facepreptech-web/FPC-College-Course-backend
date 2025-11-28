@@ -331,6 +331,19 @@ app.delete('/semesters/:id', async (req, res) => {
   }
 });
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    message: 'FACEPrep Campus API is running', 
+    storage: 'JSON file',
+    endpoints: {
+      colleges: '/colleges',
+      health: '/health'
+    }
+  });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', message: 'API is running', storage: 'JSON file' });
