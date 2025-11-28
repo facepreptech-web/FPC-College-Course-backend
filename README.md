@@ -5,11 +5,8 @@ Standalone Node.js/Express API server for FACEPrep Campus. This backend connects
 ## 🗄️ Database
 
 **Shared Database Configuration:**
-- **Database**: `u461595815_fpc`
-- **User**: `u461595815_fpcadmin`
-- **Host**: `localhost`
-
-Both frontend and backend use the same MySQL database.
+- Both frontend and backend use the same MySQL database
+- Configure database credentials in `.env` file (see Configuration section)
 
 ## 🚀 Quick Start
 
@@ -31,9 +28,9 @@ Create a `.env` file:
 
 ```env
 DB_HOST=localhost
-DB_NAME=u461595815_fpc
-DB_USER=u461595815_fpcadmin
-DB_PASS=f7McCB4#6IE!
+DB_NAME=your_database_name
+DB_USER=your_database_user
+DB_PASS=your_database_password
 PORT=3000
 ```
 
@@ -41,6 +38,16 @@ PORT=3000
 
 1. Run `setup.sql` in your MySQL database (phpMyAdmin)
 2. This creates the required tables: `colleges`, `courses`, `semesters`
+
+### Seed Initial Data
+
+To populate the database with initial college, course, and semester data:
+
+```bash
+npm run seed
+```
+
+**Note:** This will clear all existing data and insert fresh data. Make sure your `.env` file is configured correctly before running the seed script.
 
 ### Run Server
 
@@ -109,8 +116,8 @@ The backend can be deployed separately from the frontend. Just make sure:
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `DB_HOST` | Database host | `localhost` |
-| `DB_NAME` | Database name | `u461595815_fpc` |
-| `DB_USER` | Database user | `u461595815_fpcadmin` |
+| `DB_NAME` | Database name | (set in .env) |
+| `DB_USER` | Database user | (set in .env) |
 | `DB_PASS` | Database password | (set in .env) |
 | `PORT` | Server port | `3000` |
 
