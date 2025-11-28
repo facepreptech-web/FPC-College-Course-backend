@@ -10,8 +10,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// JSON file path
-const DATA_FILE = path.join(__dirname, 'data.json');
+// JSON file path - use /tmp for Vercel (writable) or current directory
+const DATA_FILE = process.env.VERCEL 
+  ? path.join('/tmp', 'data.json')
+  : path.join(__dirname, 'data.json');
 
 // Helper function to read data from JSON file
 async function readData() {
@@ -334,10 +336,13 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', message: 'API is running', storage: 'JSON file' });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`Using JSON file storage: ${DATA_FILE}`);
-});
+// Start server (only if not in Vercel/serverless environment)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+    console.log(`Using JSON file storage: ${DATA_FILE}`);
+  });
+}
 
+// Export for Vercel serverless
 module.exports = app;
